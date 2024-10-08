@@ -14,6 +14,7 @@ import { ellipse, square, triangle } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
+import ProductDetails from './pages/ProductDetails';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -44,6 +45,8 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import CategoryProducts from './pages/CategoryProducts';
+import Categories from './pages/Categories';
 
 setupIonicReact();
 
@@ -52,6 +55,15 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
+          <Route exact path="/product-details">
+            <ProductDetails />
+          </Route>
+          <Route exact path="/categories" >
+            <Categories/>
+          </Route>
+          <Route exact path="/category-products/:categoryId" >
+           <CategoryProducts/>
+          </Route>
           <Route exact path="/tab1">
             <Tab1 />
           </Route>
@@ -62,11 +74,11 @@ const App: React.FC = () => (
             <Tab3 />
           </Route>
           <Route exact path="/">
-            <Redirect to="/tab1" />
+            <Redirect to="/categories" />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
+          <IonTabButton tab="categories" href="/categories">
             <IonIcon aria-hidden="true" icon={triangle} />
             <IonLabel>Tab 1</IonLabel>
           </IonTabButton>

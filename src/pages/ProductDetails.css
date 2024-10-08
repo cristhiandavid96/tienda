@@ -1,0 +1,32 @@
+/* Estilos para la pantalla de detalles del producto */
+.product-details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .product-image {
+    width: 250px;
+    height: 250px;
+    object-fit: cover; /* Mantener proporción de la imagen */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra alrededor de la imagen */
+    margin-bottom: 20px; /* Espacio entre la imagen y el texto */
+  }
+  
+  .product-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+  }
+  
+  /* Opcional: Estilos para el botón de regreso */
+  .ion-toolbar {
+    --background: #3880ff; /* Cambia el color del toolbar si quieres */
+  }
+  
+  
