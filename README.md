@@ -2,8 +2,8 @@
 
 Este proyecto  es una prueba tecnica y cumple con las siguientes funcionalidades:
 
-## >Consume la informacion de la siguiente API https://fakeapi.platzi.com/
-## >Permite busqueda de productos deseados  por nombre, fecha agreghada y precio
+## >Consume la información de la siguiente API https://fakeapi.platzi.com/
+## >Permite busqueda de productos deseados  por nombre, fecha agregada y precio
 ## >Muetras el listado  de categorias  y de productos
 ## >Filtra los productos por su categoria
 ## >Permite añadir productos a la lista de deseados 
