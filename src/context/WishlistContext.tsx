@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Product } from '../domain/entities/Product';
 
-// Definición del tipo de contexto
+// Definición del contexto
 interface WishlistContextProps {
   wishlist: Product[];
   addToWishlist: (product: Product) => void;
@@ -12,7 +12,7 @@ interface WishlistContextProps {
 // Crear el contexto
 const WishlistContext = createContext<WishlistContextProps | undefined>(undefined);
 
-// Hook para utilizar el contexto de la lista de deseados
+// Hook para utilizar el contexto
 export const useWishlistContext = (): WishlistContextProps => {
   const context = useContext(WishlistContext);
   if (!context) {
@@ -25,11 +25,17 @@ export const useWishlistContext = (): WishlistContextProps => {
 export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [wishlist, setWishlist] = useState<Product[]>([]);
 
-  // Cargar la lista de deseados desde `localStorage` al iniciar
+  // Cargar la lista de deseados desde `localStorage` al montar el componente
   useEffect(() => {
     const storedWishlist = localStorage.getItem('wishlist');
     if (storedWishlist) {
-      setWishlist(JSON.parse(storedWishlist));
+      try {
+        const parsedWishlist: Product[] = JSON.parse(storedWishlist);
+        setWishlist(parsedWishlist);
+        console.log("Wishlist cargada desde localStorage:", parsedWishlist);
+      } catch (error) {
+        console.error("Error al parsear wishlist desde localStorage:", error);
+      }
     }
   }, []);
 
@@ -40,14 +46,20 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Agregar un producto a la lista de deseados
   const addToWishlist = (product: Product) => {
-    setWishlist((prevWishlist) => [...prevWishlist, product]);
+    setWishlist((prevWishlist) => {
+      const newWishlist = [...prevWishlist, { ...product, dateAdded: new Date().toISOString() }];
+      console.log("Producto agregado a la lista de deseados:", newWishlist);
+      return newWishlist;
+    });
   };
 
   // Eliminar un producto de la lista de deseados
   const removeFromWishlist = (productId: number) => {
-    setWishlist((prevWishlist) =>
-      prevWishlist.filter((product) => product.id !== productId)
-    );
+    setWishlist((prevWishlist) => {
+      const updatedWishlist = prevWishlist.filter((product) => product.id !== productId);
+      console.log("Producto eliminado de la lista de deseados:", updatedWishlist);
+      return updatedWishlist;
+    });
   };
 
   // Verificar si un producto está en la lista de deseados

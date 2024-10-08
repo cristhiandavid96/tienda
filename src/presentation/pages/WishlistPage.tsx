@@ -1,9 +1,9 @@
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonThumbnail, IonImg, IonButton, IonButtons, IonBackButton } from '@ionic/react';
-import { useWishlist } from '../../hooks/useWishlist';
+import { useWishlistContext } from '../../context/WishlistContext';
 
 const WishlistPage: React.FC = () => {
-  const { wishlist, removeFromWishlist } = useWishlist();
+  const { wishlist,removeFromWishlist } = useWishlistContext();
 
   return (
     <IonPage>

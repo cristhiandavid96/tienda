@@ -23,6 +23,7 @@ import { ProductRepositoryImpl } from '../../data/repositories/ProductRepository
 import { GetProductsByCategoryUseCase } from '../../domain/usecases/GetProductsByCategoryUseCase';
 import { useWishlistContext } from '../../context/WishlistContext'; // Usar el nuevo contexto
 import { filterProductsWithValidImages } from '../../helpers/ValidationImages';
+import { useHistory } from 'react-router-dom';
 
 interface RouteParams {
   categoryId: string;
@@ -32,6 +33,7 @@ const CategoryProductsPage: React.FC = () => {
   const { categoryId } = useParams<RouteParams>();
   const [products, setProducts] = useState<Product[]>([]);
   const categoryIdNumber = parseInt(categoryId, 10);
+  const history = useHistory();
 
   // Usar el contexto de wishlist en lugar de un hook local
   const { wishlist, addToWishlist, removeFromWishlist, isInWishlist } = useWishlistContext();
@@ -83,6 +85,10 @@ const CategoryProductsPage: React.FC = () => {
             <IonBackButton defaultHref="/categories" />
           </IonButtons>
           <IonTitle>Productos por Categoría</IonTitle>
+          <IonButton slot='end' className='custom-button'  onClick={() => history.push('/wishlist')} >
+            Ver Deseados
+            <IonIcon slot="end" icon={heart} />
+          </IonButton>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">

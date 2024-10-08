@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonThumbnail, IonImg } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonThumbnail, IonImg, IonButton, IonIcon } from '@ionic/react';
 import { GetCategoriesUseCase } from '../../domain/usecases/GetCategoriesUseCase';
 import { CategoryRepositoryImpl } from '../../data/repositories/CategoryRepositoryImpl';
 import { Category } from '../../domain/entities/Category';
 import { useHistory } from 'react-router-dom';
+import { heart } from 'ionicons/icons';
 
 const CategoriesPage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -26,6 +27,10 @@ const CategoriesPage: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Categorías</IonTitle>
+          <IonButton slot='end' className='custom-button'  onClick={() => history.push('/wishlist')} >
+            Ver Deseados
+            <IonIcon slot="end" icon={heart} />
+          </IonButton>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
