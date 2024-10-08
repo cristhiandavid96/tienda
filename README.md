@@ -18,7 +18,7 @@ Estos son los comandos con los que puedes ejecutar el proyecto :
 
 Con este comando levantas la aplicación en modo desarrollo (local)
 
-Por defecto se abre en el puerto 3000 [http://localhost:3000](http://localhost:3000) 
+Por defecto se abre en el puerto 8100 [http://localhost:8100](http://localhost:8100) 
 
 
 
