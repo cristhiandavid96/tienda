@@ -38,26 +38,34 @@ import '@ionic/react/css/palettes/dark.system.css';
 import './theme/variables.css';
 import CategoryProducts from './presentation/pages/CategoryProductsPage';
 import Categories from './presentation/pages/CategoriesPage';
+import WishlistPage from './presentation/pages/WishlistPage';
+import { WishlistProvider } from './context/WishlistContext';
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/categories" >
-            <Categories/>
-          </Route>
-          <Route exact path="/category-products/:categoryId" >
-           <CategoryProducts/>
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/categories" />
-          </Route>
-        </IonRouterOutlet>
-      </IonTabs>
-    </IonReactRouter>
+    <WishlistProvider>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route exact path="/categories" >
+              <Categories />
+            </Route>
+            <Route exact path="/category-products/:categoryId" >
+              <CategoryProducts />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/categories" />
+            </Route>
+            <Route path="/wishlist" exact>
+              <WishlistPage />
+            </Route>
+          </IonRouterOutlet>
+        </IonTabs>
+      </IonReactRouter>
+    </WishlistProvider>
+
   </IonApp>
 );
 
