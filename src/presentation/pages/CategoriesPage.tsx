@@ -1,44 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-  IonList,
-  IonItem,
-  IonLabel,
-  IonThumbnail,
-  IonImg,
-} from '@ionic/react';
-import axios from 'axios';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonThumbnail, IonImg } from '@ionic/react';
+import { GetCategoriesUseCase } from '../../domain/usecases/GetCategoriesUseCase';
+import { CategoryRepositoryImpl } from '../../data/repositories/CategoryRepositoryImpl';
+import { Category } from '../../domain/entities/Category';
 import { useHistory } from 'react-router-dom';
 
-interface Category {
-  id: number;
-  name: string;
-  image: string;
-}
-
-const Categories: React.FC = () => {
+const CategoriesPage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const history = useHistory();
 
   useEffect(() => {
-    // Llamar a la API para obtener las categorías
-    axios
-      .get('https://api.escuelajs.co/api/v1/categories')
-      .then((response) => {
-        // Filtrar las categorías que no contengan "books" o "test" en su nombre
-        const filteredCategories = response.data.filter((category: Category) =>
-          !/books|test/i.test(category.name)
-        );
-        setCategories(filteredCategories);
-      })
-      .catch((error) => console.error('Error al cargar las categorías: ', error));
+    // Crear el caso de uso e invocarlo
+    const categoryRepository = new CategoryRepositoryImpl();
+    const getCategoriesUseCase = new GetCategoriesUseCase(categoryRepository);
+
+    getCategoriesUseCase.execute().then(setCategories).catch(console.error);
   }, []);
 
-  // Función para navegar a la pantalla de productos por categoría
   const showCategoryProducts = (categoryId: number) => {
     history.push(`/category-products/${categoryId}`);
   };
@@ -66,4 +44,4 @@ const Categories: React.FC = () => {
   );
 };
 
-export default Categories;
+export default CategoriesPage;
