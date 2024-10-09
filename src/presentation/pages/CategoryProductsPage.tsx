@@ -24,6 +24,7 @@ import { GetProductsByCategoryUseCase } from '../../domain/usecases/GetProductsB
 import { useWishlistContext } from '../../context/WishlistContext'; // Usar el nuevo contexto
 import { filterProductsWithValidImages } from '../../helpers/ValidationImages';
 import { useHistory } from 'react-router-dom';
+import  './button.css';
 
 interface RouteParams {
   categoryId: string;
@@ -46,9 +47,9 @@ const CategoryProductsPage: React.FC = () => {
     categoryProductsController
       .getProducts(categoryIdNumber)
       .then(async (fetchedProducts) => {
-        // Actualizar la propiedad `isWished` de cada producto con la información del contexto
-        const validProducts = await filterProductsWithValidImages(fetchedProducts);
-        const productsWithWishlist = validProducts.map((product) => ({
+        // Actualizar la propiedad `isWished` de cada producto con la información del contexto       
+
+        const productsWithWishlist = fetchedProducts.map((product) => ({
           ...product,
           isWished: isInWishlist(product.id),
         }));
@@ -75,8 +76,6 @@ const CategoryProductsPage: React.FC = () => {
     }
   };
 
-  
-
   return (
     <IonPage>
       <IonHeader>
@@ -84,19 +83,21 @@ const CategoryProductsPage: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/categories" />
           </IonButtons>
-          <IonTitle>Productos por Categoría</IonTitle>
-          <IonButton slot='end' className='custom-button'  onClick={() => history.push('/wishlist')} >
-            Ver Deseados
-            <IonIcon slot="end" icon={heart} />
-          </IonButton>
+          <IonTitle>Productos</IonTitle>
         </IonToolbar>
       </IonHeader>
+      <div className='custom-button'>
+        <IonButton slot='end'  onClick={() => history.push('/wishlist')} >
+          Ver Deseados
+          <IonIcon slot="end" icon={heart} />
+        </IonButton>
+      </div>
       <IonContent className="ion-padding">
         <IonList>
           {products.map((product) => (
             <IonItem key={product.id}>
               <IonThumbnail slot="start">
-                <IonImg src={product.images[0]} />
+                <IonImg src={product.images[0].replace('["', '').replace('"]', '')} />
               </IonThumbnail>
               <IonLabel>
                 <h2>{product.title}</h2>

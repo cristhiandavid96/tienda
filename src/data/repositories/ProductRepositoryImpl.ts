@@ -8,8 +8,7 @@ export class ProductRepositoryImpl implements ProductRepository {
   async getProductsByCategory(categoryId: number): Promise<Product[]> {
     try {
       const response = await axios.get<Product[]>(`${this.baseUrl}`);
-      
-      // Filtrar por `product.category.id` en lugar de `product.categoryId`
+      // Filtrar por `product.category.id` en lugar de `product.categoryId`    
       return response.data.filter((product) => product.category?.id === categoryId);
     } catch (error) {
       console.error('Error fetching products by category', error);

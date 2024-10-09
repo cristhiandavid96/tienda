@@ -20,7 +20,7 @@ const WishlistPage: React.FC = () => {
           {wishlist.map((product) => (
             <IonItem key={product.id}>
               <IonThumbnail slot="start">
-                <IonImg src={product.images[0]} />
+                <IonImg src={product.images[0].replace('["', '').replace('"]', '')} />
               </IonThumbnail>
               <IonLabel>
                 <h2>{product.title}</h2>

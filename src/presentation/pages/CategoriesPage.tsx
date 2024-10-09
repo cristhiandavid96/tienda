@@ -5,6 +5,7 @@ import { CategoryRepositoryImpl } from '../../data/repositories/CategoryReposito
 import { Category } from '../../domain/entities/Category';
 import { useHistory } from 'react-router-dom';
 import { heart } from 'ionicons/icons';
+import  './button.css';
 
 const CategoriesPage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -14,7 +15,6 @@ const CategoriesPage: React.FC = () => {
     // Crear el caso de uso e invocarlo
     const categoryRepository = new CategoryRepositoryImpl();
     const getCategoriesUseCase = new GetCategoriesUseCase(categoryRepository);
-
     getCategoriesUseCase.execute().then(setCategories).catch(console.error);
   }, []);
 
@@ -26,13 +26,15 @@ const CategoriesPage: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Categorías</IonTitle>
-          <IonButton slot='end' className='custom-button'  onClick={() => history.push('/wishlist')} >
-            Ver Deseados
-            <IonIcon slot="end" icon={heart} />
-          </IonButton>
-        </IonToolbar>
+          <IonTitle>Categorías</IonTitle>          
+        </IonToolbar>        
       </IonHeader>
+      <div className='custom-button'>
+        <IonButton slot='end'  onClick={() => history.push('/wishlist')} >
+          Ver Deseados
+          <IonIcon slot="end" icon={heart} />
+        </IonButton>
+      </div>
       <IonContent className="ion-padding">
         <IonList>
           {categories.map((category) => (
